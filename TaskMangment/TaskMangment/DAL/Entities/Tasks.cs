@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using TaskMangment.Enums;
 
 namespace TaskMangment.DAL.Entities
 {
@@ -17,6 +18,7 @@ namespace TaskMangment.DAL.Entities
         public bool IsCompleted { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [EnumDataType(typeof(PriorityLevel))]
         [Display(Name = "Prioridad")]
         public string Priority { get; set; }
 
