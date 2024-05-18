@@ -8,7 +8,7 @@ namespace TaskMangment.Domain.Interfaces
 
         Task<Tasks> GetTasksByIdAsync(Guid id);//una tarea por id
 
-        Task<Tasks> GetTasksByDueDateAsync(DateTime date);//Tareas por fecha de vencimiento
+        Task<IEnumerable<Tasks>> GetTasksByDueDateAsync(DateTime date);//Tareas por fecha de vencimiento
 
         Task<Tasks> CreateTasksAsync(Tasks tasks);
 
