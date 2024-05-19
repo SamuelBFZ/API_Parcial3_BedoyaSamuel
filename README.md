@@ -5,4 +5,4 @@
 ## Repository structure
 
 - `TaskManagment/`: This branch contains all the project
-- -`TaskManagmentTest/`: This branch contains a little change on program logic in controller and service
+- `TaskManagmentTest/`: This branch contains a little change on program logic in controller and service
