@@ -61,10 +61,6 @@ namespace TaskMangment.Domain.Services
 
         public async Task<Tasks> CreateTasksAsync(Tasks tasks)//Crea tareas si y solo si tienen una nota de vencimiento mayor a la actual
         {
-            if(tasks.DueDate < DateTime.Now.Date)
-            {
-                throw new ArgumentException("La fecha de vencimiento no puede ser en el pasado.");
-            }
 
             tasks.Id = Guid.NewGuid();
             tasks.CreatedDate = DateTime.Now;
@@ -105,10 +101,6 @@ namespace TaskMangment.Domain.Services
                 if (tasks == null)//controlamos que en caso de que el id sea incorrecto o no exista
                 {
                     return null;
-                }
-                else if (!tasks.IsCompleted)
-                {
-                    throw new InvalidOperationException("La tarea esta aun sin completar.");
                 }
                 _context.Tasks.Remove(tasks);
 

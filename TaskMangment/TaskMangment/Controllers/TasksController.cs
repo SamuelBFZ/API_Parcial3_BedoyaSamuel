@@ -60,11 +60,13 @@ namespace TaskMangment.Controllers
 
         [HttpPost]
         [Route("Create")]
-        public async Task<ActionResult<Tasks>> CreateTasksAsync(Tasks tasks)//Funciona, pero el error ejecutado debe ser un 200 y me esta saliendo 500
+        public async Task<ActionResult<Tasks>> CreateTasksAsync(Tasks tasks)
         {
             var newTasks = await _taskService.CreateTasksAsync(tasks);
 
             if (newTasks == null) return NotFound();
+
+            if (tasks.DueDate < DateTime.Now.Date) return Ok("La fecha de vencimiento no puede ser en el pasado.");
 
             return Ok(newTasks);
         }
@@ -73,17 +75,17 @@ namespace TaskMangment.Controllers
         [Route("Edit")]
         public async Task<ActionResult<Tasks>> EditTasksAsync(Tasks tasks)//Funciona
         {
-                var editedTask = await _taskService.EditTasksAsync(tasks);
+            var editedTask = await _taskService.EditTasksAsync(tasks);
 
-                if (editedTask == null) return NotFound();
+            if (editedTask == null) return NotFound();
 
-                return Ok(editedTask);
+            return Ok(editedTask);
 
         }
 
         [HttpDelete]
         [Route("Delete")]
-        public async Task<ActionResult<Tasks>> DeleteTasksAsync(Guid id)//Falta probar
+        public async Task<ActionResult<Tasks>> DeleteTasksAsync(Guid id)
         {
             if (id == null) return BadRequest();
 
@@ -91,7 +93,9 @@ namespace TaskMangment.Controllers
 
             if (deletedTask == null) return NotFound();
 
-            return Ok(deletedTask);//Tambien debo cambiar este mensaje
+            if (!deletedTask.IsCompleted) return Ok("La tarea aun esta sin competar");
+
+            return Ok(deletedTask);
         }
     }
 }
